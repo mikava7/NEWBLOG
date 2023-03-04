@@ -18,7 +18,7 @@ const userShcema = new mongoose.Schema(
     avatarURL: String,
   },
   {
-    timestemps: true,
+    timestamps: true,
   }
 );
 export default mongoose.model("User", userShcema);
