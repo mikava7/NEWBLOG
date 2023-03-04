@@ -106,6 +106,11 @@ app.post("/auth/login", async (req, res) => {
 app.get("/auth/me", async (req, res) => {
   try {
     const me = await userModel.findOne({ fullName: req.body.fullName });
+    if (!me) {
+      return res.status(404).json({
+        message: "user not found",
+      });
+    }
   } catch (error) {}
 });
 app.listen(port, console.log(`server is listening to port: ${port}`));
