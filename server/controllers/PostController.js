@@ -59,3 +59,52 @@ export const create = async (req, res) => {
     });
   }
 };
+
+export const remove = async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    const result = await PostModel.findOneAndDelete({
+      _id: postId,
+      user: req.userId,
+    });
+
+    if (!result) {
+      return res.status(404).json({
+        message: "post not found",
+      });
+    }
+
+    res.json({ success: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "can't delete post",
+    });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    await PostModel.updateOne(
+      {
+        _id: postId,
+      },
+      {
+        title: req.body.title,
+        text: req.body.text,
+        imageURL: req.body.imageURL,
+        tags: req.body.tags,
+        //users vigebt bekendidan
+        user: req.userId,
+      }
+    );
+    res.json({ success: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "can't update post",
+    });
+  }
+};
