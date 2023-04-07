@@ -20,7 +20,7 @@ import {
 
 import cors from "cors";
 const app = express();
-
+const port = 4444;
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, "uploads"); // set the correct path for the uploaded file
@@ -85,4 +85,4 @@ app.patch(
 	update
 );
 
-app.listen(4444, console.log(`server is listening to port: `));
+app.listen(port, console.log(`server is listening to port:${port} `));
